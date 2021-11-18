@@ -1,0 +1,6 @@
+[submodule "cmdstan-feedstock" ]
+    path = include/foo
+    branch = master
+	url = ../cmdstan-feedstock
+
+
