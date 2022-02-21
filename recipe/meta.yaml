@@ -45,7 +45,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file: LICENSE
-  summary: CmdStan, the command line interface to Stan
+  summary: CmdStan, the command line interface to Stan 
   description: |
     <b>CmdStan</b> is the command line interface to Stan, a package providing
 
