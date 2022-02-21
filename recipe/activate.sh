@@ -1,1 +1,1 @@
-export CMDSTAN_OLD=$CMDSTANexport
+export CMDSTAN_OLD=$CMDSTAN
