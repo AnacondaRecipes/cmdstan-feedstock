@@ -18,8 +18,6 @@ build:
   # cmdstan isn't currently available on s390x and win32
   skip: True  # [s390x or win32]
   binary_relocation: false
-  ignore_run_exports:
-    - tbb-devel  # [unix]
 
 requirements:
   build:

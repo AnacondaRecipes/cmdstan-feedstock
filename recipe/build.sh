@@ -3,6 +3,7 @@ rm -rf src/test
 
 export LDLIBS_TBB=$(echo $LDLIBS_TBB | sed 's/-Wl,--disable-new-dtags//g')
 export LDFLAGS_TBB=$(echo $LDFLAGS_TBB | sed 's/-Wl,--disable-new-dtags//g')
+export TBB="${PREFIX}"
 
 mkdir -p $PREFIX/bin
 cp -r . $PREFIX/bin/cmdstan
