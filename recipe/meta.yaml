@@ -19,7 +19,7 @@ build:
   skip: True  # [s390x or win32]
   binary_relocation: false
   ignore_run_exports:
-    - tbb-devel  # [linux]
+    - tbb-devel  # [unix]
 
 requirements:
   build:
