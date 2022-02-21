@@ -1,10 +1,17 @@
 # don't need test files
 rm -rf src/test
 
+
 mkdir -p $PREFIX/bin
 cp -r . $PREFIX/bin/cmdstan
 
 cd $PREFIX/bin/cmdstan
+
+
+if [[ "$target_platform"  == "osx-64" ]]; then
+    LDLIBS_TBB="-Wl,-L,$PREFIX/lib/ -Wl,-rpath,$PREFIX/lib/ -Wl, -ltbb"
+    LDFLAGS_TBB="-Wl,-L,$PREFIX/lib/ -Wl,-rpath,$PREFIX/lib/ -Wl, -ltbb"
+fi
 
 echo "TBB_CXX_TYPE=${c_compiler}"  >> make/local
 echo "TBB_INTERFACE_NEW=true" >> make/local
