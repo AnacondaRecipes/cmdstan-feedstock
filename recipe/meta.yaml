@@ -16,6 +16,8 @@ source:
 build:
   number: 0
   binary_relocation: false
+  ignore_run_exports:
+    - tbb-devel  # [linux]
 
 requirements:
   build:
