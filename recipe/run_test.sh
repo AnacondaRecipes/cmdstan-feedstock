@@ -1,3 +1,6 @@
+export LDLIBS_TBB=$(echo $LDLIBS_TBB | sed 's/-Wl,--disable-new-dtags//g')
+export LDFLAGS_TBB=$(echo $LDFLAGS_TBB | sed 's/-Wl,--disable-new-dtags//g')
+
 echo $CMDSTAN
 
 cd $PREFIX/bin/cmdstan
