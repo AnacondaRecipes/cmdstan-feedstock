@@ -18,6 +18,8 @@ build:
   # cmdstan isn't currently available on s390x and win32
   skip: True  # [s390x or win32]
   binary_relocation: false
+  missing_dso_whitelist:
+    - $RPATH/tbbmalloc.dll         # [win]
 
 requirements:
   build:
@@ -38,8 +40,14 @@ requirements:
     - m2-filesystem                # [win]
     - m2-sed                       # [win]
     - m2-coreutils                 # [win]
+    - m2w64-libwinpthread-git      # [win]
+    - m2w64-gcc-libs-core          # [win]
   run_constrained:
     - tbb >=2021                   # [win]
+
+test:
+  requires:
+    - tbb-devel                    # [not win]    
 
 about:
   home: https://mc-stan.org/users/interfaces/cmdstan.html
