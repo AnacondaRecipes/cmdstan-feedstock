@@ -17,7 +17,6 @@ source:
 
 build:
   number: 0
-  skip: true  # [s390x]
   binary_relocation: false
   missing_dso_whitelist:      # [win]
     - "$RPATH/tbbmalloc.dll"  # [win]
@@ -31,6 +30,8 @@ requirements:
     - m2-filesystem                # [win]
     - m2-sed                       # [win]
     - m2-coreutils                 # [win]
+    - m2w64-libwinpthread-git      # [win]
+    - m2w64-gcc-libs-core          # [win]
     - patch                        # [osx]
   host:
     - tbb-devel 2021.8.0           # [not win]
@@ -79,3 +80,4 @@ extra:
     - missing_hash
     - missing_source
     - compilers_must_be_in_build
+    - build_tools_must_be_in_build
