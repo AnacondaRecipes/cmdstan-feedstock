@@ -10,25 +10,11 @@ cp -r . $PREFIX/bin/cmdstan
 
 cd $PREFIX/bin/cmdstan
 
-ls -laR .
-
-# Create missing make/local file on s390x
-if [ "${target_platform}" == 'linux-s390x' ]; then
-    mkdir make && touch make/local
-    ls -lia ./make/local
-fi
-
 echo "TBB_CXX_TYPE=${c_compiler}"  >> make/local
 echo "TBB_INTERFACE_NEW=true" >> make/local
 echo "TBB_INC=${PREFIX}/include/" >> make/local
 echo "TBB_LIB=${PREFIX}/lib/" >> make/local
 echo "PRECOMPILED_HEADERS=false" >> make/local
-
-# print-compiler-flags doesn't exist on s390x
-if [ "${target_platform}" != 'linux-s390x' ]; then
-    make print-compiler-flags
-fi
-
 
 make clean-all
 

@@ -12,6 +12,8 @@ source:
   sha256: 4343c0a64f558a2449a3fff86ff0d33899dd57089b5c1c20364b79330185f5c9                                                    # [linux and aarch64]
   url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-ppc64el.tar.gz  # [linux and ppc64le]
   sha256: 42f3092ceb7e0c9cef5853a6777b0bfe57e2e0c4266b401b59d706c7d627e8f6                                                    # [linux and ppc64le]
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-s390x.tar.gz    # [linux and s390x]
+  sha256: 7ed311b5aa8aaa0820c40c3d6b3ff536c79168c9d278555cd67aa65740980dab                                                    # [linux and s390x]
   patches:                # [osx]
     - no-dtag-flag.patch  # [osx]
 
