@@ -22,7 +22,11 @@ echo "TBB_INC=${PREFIX}/include/" >> make/local
 echo "TBB_LIB=${PREFIX}/lib/" >> make/local
 echo "PRECOMPILED_HEADERS=false" >> make/local
 
-make print-compiler-flags
+# print-compiler-flags doesn't exist on s390x
+if [ "${target_platform}" != 'linux-s390x' ]; then
+    make print-compiler-flags
+fi
+
 
 make clean-all
 
