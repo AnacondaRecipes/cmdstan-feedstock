@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -exuo pipefail
+
 # don't need test files
 rm -rf src/test
 
