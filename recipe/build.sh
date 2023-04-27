@@ -11,8 +11,7 @@ cp -r . $PREFIX/bin/cmdstan
 cd $PREFIX/bin/cmdstan
 
 if [ "${target_platform}" == 'linux-s390x' ]; then
-    ls -lia ./make/local.example
-    cp -R ./make/local.example ./make/local
+    touch ./make/local
     ls -lia ./make/local
 fi
 
