@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # don't need test files
 rm -rf src/test
 

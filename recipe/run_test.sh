@@ -1,3 +1,5 @@
+#!/bin/bash
+
 echo $CMDSTAN
 
 cd $PREFIX/bin/cmdstan
