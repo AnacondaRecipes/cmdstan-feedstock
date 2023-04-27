@@ -10,8 +10,11 @@ cp -r . $PREFIX/bin/cmdstan
 
 cd $PREFIX/bin/cmdstan
 
-ls -lia ./make/local
-ls -lia ./make/local.example
+if [ "${target_platform}" == 'linux-s390x' ]; then
+    ls -lia ./make/local.example
+    cp -R ./make/local.example ./make/local
+    ls -lia ./make/local
+fi
 
 echo "TBB_CXX_TYPE=${c_compiler}"  >> make/local
 echo "TBB_INTERFACE_NEW=true" >> make/local
