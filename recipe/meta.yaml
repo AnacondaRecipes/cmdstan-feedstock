@@ -19,6 +19,8 @@ build:
   number: 0
   skip: true  # [s390x]
   binary_relocation: false
+  missing_dso_whitelist:      # [s390x]
+    - "$RPATH/tbbmalloc.dll"  # [s390x]
 
 requirements:
   build:
@@ -41,6 +43,9 @@ requirements:
     - m2-filesystem                # [win]
     - m2-sed                       # [win]
     - m2-coreutils                 # [win]
+    - m2w64-libwinpthread-git      # [win]
+    - m2w64-gcc-libs-core          # [win]
+
   run_constrained:
     - tbb >=2021                   # [win]
 
