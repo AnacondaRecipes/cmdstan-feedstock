@@ -44,9 +44,10 @@ requirements:
   run_constrained:
     - tbb >=2021                   # [win]
 
-test:
-  downstreams:
-    - cmdstanpy
+# As it's a first build of cmdstan we skip testing a non-existing yet cmdstanpy package
+#test:
+#  downstreams:
+#    - cmdstanpy
 
 about:
   home: https://mc-stan.org/users/interfaces/cmdstan.html
