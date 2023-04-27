@@ -10,8 +10,9 @@ cp -r . $PREFIX/bin/cmdstan
 
 cd $PREFIX/bin/cmdstan
 
+# Create missing make/local file on s390x
 if [ "${target_platform}" == 'linux-s390x' ]; then
-    touch ./make/local
+    mkdir make && touch make/local
     ls -lia ./make/local
 fi
 
