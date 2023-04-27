@@ -6,17 +6,18 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz  # [x86 or arm64]
-  sha256: 04ca91456202fd9ec8b76aa411225df4bdf2732c6f03a3478966c0bf354ccc84  # [x86 or arm64]
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-arm64.tar.gz  # [aarch64]
-  sha256: 4343c0a64f558a2449a3fff86ff0d33899dd57089b5c1c20364b79330185f5c9  # [aarch64]
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-ppc64el.tar.gz  # [ppc64le]
-  sha256: 42f3092ceb7e0c9cef5853a6777b0bfe57e2e0c4266b401b59d706c7d627e8f6  # [ppc64le]
-  patches:
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz                # [x86 or arm64]
+  sha256: 04ca91456202fd9ec8b76aa411225df4bdf2732c6f03a3478966c0bf354ccc84                                                    # [x86 or arm64]
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-arm64.tar.gz    # [linux and aarch64]
+  sha256: 4343c0a64f558a2449a3fff86ff0d33899dd57089b5c1c20364b79330185f5c9                                                    # [linux and aarch64]
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-ppc64el.tar.gz  # [linux and ppc64le]
+  sha256: 42f3092ceb7e0c9cef5853a6777b0bfe57e2e0c4266b401b59d706c7d627e8f6                                                    # [linux and ppc64le]
+  patches:                # [osx]
     - no-dtag-flag.patch  # [osx]
 
 build:
   number: 0
+  skip: true  # [s390x]
   binary_relocation: false
 
 requirements:
@@ -28,8 +29,9 @@ requirements:
     - m2-filesystem                # [win]
     - m2-sed                       # [win]
     - m2-coreutils                 # [win]
+    - patch                        # [osx]
   host:
-    - tbb-devel                    # [not win]
+    - tbb-devel 2021.8.0           # [not win]
   run:
     - {{ compiler('cxx') }}        # [not win]
     - make                         # [not win]
@@ -67,3 +69,7 @@ extra:
   recipe-maintainers:
     - maresb
     - WardBrian
+  skip-lints:
+    - missing_hash
+    - missing_source
+    - compilers_must_be_in_build
