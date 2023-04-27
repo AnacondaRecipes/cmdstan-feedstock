@@ -19,8 +19,8 @@ build:
   number: 0
   skip: true  # [s390x]
   binary_relocation: false
-  missing_dso_whitelist:      # [s390x]
-    - "$RPATH/tbbmalloc.dll"  # [s390x]
+  missing_dso_whitelist:      # [win]
+    - "$RPATH/tbbmalloc.dll"  # [win]
 
 requirements:
   build:
