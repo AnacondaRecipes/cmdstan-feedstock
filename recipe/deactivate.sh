@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ "$CMDSTAN_OLD" ];
 then
     export CMDSTAN="$CMDSTAN_OLD"

@@ -1,3 +1,7 @@
+#!/bin/bash
+
+set -exuo pipefail
+
 # don't need test files
 rm -rf src/test
 
@@ -11,8 +15,6 @@ echo "TBB_INTERFACE_NEW=true" >> make/local
 echo "TBB_INC=${PREFIX}/include/" >> make/local
 echo "TBB_LIB=${PREFIX}/lib/" >> make/local
 echo "PRECOMPILED_HEADERS=false" >> make/local
-
-make print-compiler-flags
 
 make clean-all
 

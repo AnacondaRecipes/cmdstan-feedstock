@@ -6,18 +6,22 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz  # [x86 or arm64]
-  sha256: 04ca91456202fd9ec8b76aa411225df4bdf2732c6f03a3478966c0bf354ccc84  # [x86 or arm64]
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-arm64.tar.gz  # [aarch64]
-  sha256: 4343c0a64f558a2449a3fff86ff0d33899dd57089b5c1c20364b79330185f5c9  # [aarch64]
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-ppc64el.tar.gz  # [ppc64le]
-  sha256: 42f3092ceb7e0c9cef5853a6777b0bfe57e2e0c4266b401b59d706c7d627e8f6  # [ppc64le]
-  patches:
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz                # [x86 or arm64]
+  sha256: 04ca91456202fd9ec8b76aa411225df4bdf2732c6f03a3478966c0bf354ccc84                                                    # [x86 or arm64]
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-arm64.tar.gz    # [linux and aarch64]
+  sha256: 4343c0a64f558a2449a3fff86ff0d33899dd57089b5c1c20364b79330185f5c9                                                    # [linux and aarch64]
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-ppc64el.tar.gz  # [linux and ppc64le]
+  sha256: 42f3092ceb7e0c9cef5853a6777b0bfe57e2e0c4266b401b59d706c7d627e8f6                                                    # [linux and ppc64le]
+  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-s390x.tar.gz    # [linux and s390x]
+  sha256: 7ed311b5aa8aaa0820c40c3d6b3ff536c79168c9d278555cd67aa65740980dab                                                    # [linux and s390x]
+  patches:                # [osx]
     - no-dtag-flag.patch  # [osx]
 
 build:
   number: 0
   binary_relocation: false
+  missing_dso_whitelist:      # [win]
+    - "$RPATH/tbbmalloc.dll"  # [win]
 
 requirements:
   build:
@@ -28,8 +32,11 @@ requirements:
     - m2-filesystem                # [win]
     - m2-sed                       # [win]
     - m2-coreutils                 # [win]
+    - m2w64-libwinpthread-git      # [win]
+    - m2w64-gcc-libs-core          # [win]
+    - patch                        # [osx]
   host:
-    - tbb-devel                    # [not win]
+    - tbb-devel 2021.8.0           # [not win]
   run:
     - {{ compiler('cxx') }}        # [not win]
     - make                         # [not win]
@@ -39,12 +46,16 @@ requirements:
     - m2-filesystem                # [win]
     - m2-sed                       # [win]
     - m2-coreutils                 # [win]
+    - m2w64-libwinpthread-git      # [win]
+    - m2w64-gcc-libs-core          # [win]
+
   run_constrained:
     - tbb >=2021                   # [win]
 
-test:
-  downstreams:
-    - cmdstanpy
+# As it's a first build of cmdstan we skip testing a non-existing yet cmdstanpy package
+#test:
+#  downstreams:
+#    - cmdstanpy
 
 about:
   home: https://mc-stan.org/users/interfaces/cmdstan.html
@@ -67,3 +78,8 @@ extra:
   recipe-maintainers:
     - maresb
     - WardBrian
+  skip-lints:
+    - missing_hash
+    - missing_source
+    - compilers_must_be_in_build
+    - build_tools_must_be_in_build
