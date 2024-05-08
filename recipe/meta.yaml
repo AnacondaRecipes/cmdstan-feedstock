@@ -1,5 +1,5 @@
 {% set name = "cmdstan" %}
-{% set version = "2.31.0" %}
+{% set version = "2.33.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz                # [x86 or arm64]
-  sha256: 04ca91456202fd9ec8b76aa411225df4bdf2732c6f03a3478966c0bf354ccc84                                                    # [x86 or arm64]
+  sha256: b848bb61178bd71980355b80994030537726d5e5862c4ddc926f23a22a001e4a                                                    # [x86 or arm64]
   url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-arm64.tar.gz    # [linux and aarch64]
-  sha256: 4343c0a64f558a2449a3fff86ff0d33899dd57089b5c1c20364b79330185f5c9                                                    # [linux and aarch64]
+  sha256: c683cd171f89a2c4eab49f6617e8584d5962a839b1203f6cb46d882d25b93f67                                                    # [linux and aarch64]
   url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-ppc64el.tar.gz  # [linux and ppc64le]
-  sha256: 42f3092ceb7e0c9cef5853a6777b0bfe57e2e0c4266b401b59d706c7d627e8f6                                                    # [linux and ppc64le]
+  sha256: 1f9136e857301924d83a5c211feec0efd0d8a30fee561c82845ca133ba4aff4d                                                    # [linux and ppc64le]
   url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-s390x.tar.gz    # [linux and s390x]
-  sha256: 7ed311b5aa8aaa0820c40c3d6b3ff536c79168c9d278555cd67aa65740980dab                                                    # [linux and s390x]
+  sha256: d598821243136ee7fcb39ef77c546b2cd013893ecf17a19fc3ae429f7a813206                                                    # [linux and s390x]
   patches:                # [osx]
     - no-dtag-flag.patch  # [osx]
 
@@ -48,7 +48,6 @@ requirements:
     - m2-coreutils                 # [win]
     - m2w64-libwinpthread-git      # [win]
     - m2w64-gcc-libs-core          # [win]
-
   run_constrained:
     - tbb >=2021                   # [win]
 
