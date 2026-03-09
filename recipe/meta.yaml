@@ -1,60 +1,47 @@
 {% set name = "cmdstan" %}
-{% set version = "2.33.1" %}
+{% set version = "2.38.0" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz                # [x86 or arm64]
-  sha256: b848bb61178bd71980355b80994030537726d5e5862c4ddc926f23a22a001e4a                                                    # [x86 or arm64]
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-arm64.tar.gz    # [linux and aarch64]
-  sha256: c683cd171f89a2c4eab49f6617e8584d5962a839b1203f6cb46d882d25b93f67                                                    # [linux and aarch64]
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-ppc64el.tar.gz  # [linux and ppc64le]
-  sha256: 1f9136e857301924d83a5c211feec0efd0d8a30fee561c82845ca133ba4aff4d                                                    # [linux and ppc64le]
-  url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-s390x.tar.gz    # [linux and s390x]
-  sha256: d598821243136ee7fcb39ef77c546b2cd013893ecf17a19fc3ae429f7a813206                                                    # [linux and s390x]
-  patches:                # [osx]
-    - no-dtag-flag.patch  # [osx]
+  - url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}.tar.gz  # [x86 or arm64]
+    sha256: 3ae8d290fa7ed6a0f425520e525460a159a32653b6d45f2153e1662d82f85f10  # [x86 or arm64]
+  - url: https://github.com/stan-dev/{{ name }}/releases/download/v{{ version }}/{{ name }}-{{ version }}-linux-arm64.tar.gz  # [aarch64]
+    sha256: aa61eeb43e02d7fd14fb33afb51a8ceb94daca8fb66d48775ac088a5b2264caf  # [aarch64]
 
 build:
   number: 0
   binary_relocation: false
-  missing_dso_whitelist:      # [win]
-    - "$RPATH/tbbmalloc.dll"  # [win]
+  missing_dso_whitelist:            # [win]
+    - "$RPATH/libgcc_s_seh-1.dll"   # [win]
+    - "$RPATH/libstdc++-6.dll"      # [win]
+    - "$RPATH/libwinpthread-1.dll"  # [win]
 
 requirements:
   build:
-    - {{ compiler('cxx') }}        # [not win]
-    - make                         # [not win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
-    - m2w64-make                   # [win]
-    - m2-filesystem                # [win]
-    - m2-sed                       # [win]
-    - m2-coreutils                 # [win]
-    - m2w64-libwinpthread-git      # [win]
-    - m2w64-gcc-libs-core          # [win]
-    - patch                        # [osx]
+    - {{ compiler('cxx') }}         # [not win]
+    - make                          # [not win]
+    - {{ compiler('ucrt64_cxx') }}  # [win]
+    - msys2-make                    # [win]
+    - msys2-filesystem              # [win]
+    - msys2-sed                     # [win]
+    - msys2-coreutils               # [win]
   host:
-    - tbb-devel 2021.8.0           # [not win]
+    - tbb-devel                     # [not win]
+    - tbb                           # [win]
   run:
-    - {{ compiler('cxx') }}        # [not win]
-    - make                         # [not win]
-    - tbb-devel                    # [not win]
-    - {{ compiler('m2w64_cxx') }}  # [win]
-    - m2w64-make                   # [win]
-    - m2-filesystem                # [win]
-    - m2-sed                       # [win]
-    - m2-coreutils                 # [win]
-    - m2w64-libwinpthread-git      # [win]
-    - m2w64-gcc-libs-core          # [win]
+    - {{ compiler('cxx') }}         # [not win]
+    - make                          # [not win]
+    - tbb-devel                     # [not win]
+    - {{ compiler('ucrt64_cxx') }}  # [win]
+    - msys2-make                    # [win]
+    - msys2-filesystem              # [win]
+    - msys2-sed                     # [win]
+    - msys2-coreutils               # [win]
   run_constrained:
-    - tbb >=2021                   # [win]
-
-# As it's a first build of cmdstan we skip testing a non-existing yet cmdstanpy package
-#test:
-#  downstreams:
-#    - cmdstanpy
+    - tbb >=2021                    # [win]
 
 about:
   home: https://mc-stan.org/users/interfaces/cmdstan.html
