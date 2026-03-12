@@ -4,6 +4,9 @@ set -exuo pipefail
 
 # don't need test files
 rm -rf src/test
+rm -rf stan/src/test
+rm -rf stan/lib/stan_math/test
+rm -rf bin/windows-stanc
 
 mkdir -p $PREFIX/bin
 cp -r . $PREFIX/bin/cmdstan
@@ -15,6 +18,7 @@ echo "TBB_INTERFACE_NEW=true" >> make/local
 echo "TBB_INC=${PREFIX}/include/" >> make/local
 echo "TBB_LIB=${PREFIX}/lib/" >> make/local
 echo "PRECOMPILED_HEADERS=false" >> make/local
+echo "LDFLAGS+=-pthread" >> make/local
 
 make clean-all
 
